@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
     use HasFactory;
-
-    protected $table = 'exam';
+    
     protected $primaryKey = 'exam_id';
-    public $timestamps = false;
-
-    protected $fillable = [
-        'name', 'exam_type_id', 'course_id', 'start_date'
-    ];
-
-    public function results()
+    protected $fillable = ['exam_type_id', 'name', 'start_date'];
+    
+    public function examType()
     {
-        return $this->hasMany(ExamResult::class, 'exam_id', 'exam_id');
+        return $this->belongsTo(ExamType::class, 'exam_type_id');
+    }
+    
+    public function examResults()
+    {
+        return $this->hasMany(ExamResult::class, 'exam_id');
     }
 }

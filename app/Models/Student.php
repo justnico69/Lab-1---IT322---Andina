@@ -8,22 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-
-    protected $table = 'student';
+    
     protected $primaryKey = 'student_id';
-    public $timestamps = false;
-
     protected $fillable = [
-        'email', 'password', 'fname', 'lname', 'dob', 'mobile', 'status', 'last_login_date', 'last_login_ip'
+        'email', 'password', 'fname', 'lname', 'dob', 
+        'phone', 'mobile', 'parent_id', 'date_of_join', 
+        'status', 'last_login_date', 'last_login_ip'
     ];
-
+    
+    protected $hidden = ['password'];
+    
+    public function parent()
+    {
+        return $this->belongsTo(ParentModel::class, 'parent_id');
+    }
+    
     public function classrooms()
     {
         return $this->belongsToMany(Classroom::class, 'classroom_student', 'student_id', 'classroom_id');
     }
-
-    public function exams()
+    
+    public function attendances()
     {
-        return $this->hasMany(ExamResult::class, 'student_id', 'student_id');
+        return $this->hasMany(Attendance::class, 'student_id');
+    }
+    
+    public function examResults()
+    {
+        return $this->hasMany(ExamResult::class, 'student_id');
     }
 }

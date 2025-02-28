@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class ExamResult extends Model
 {
     use HasFactory;
-
-    protected $table = 'exam_result';
-    public $timestamps = false;
-
-    protected $fillable = [
-        'exam_id', 'student_id', 'marks'
-    ];
-
+    
+    protected $fillable = ['exam_id', 'student_id', 'course_id', 'marks'];
+    
     public function exam()
     {
-        return $this->belongsTo(Exam::class, 'exam_id', 'exam_id');
+        return $this->belongsTo(Exam::class, 'exam_id');
     }
-
+    
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id', 'student_id');
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+    
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

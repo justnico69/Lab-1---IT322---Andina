@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
-
-    protected $table = 'course';
+    
     protected $primaryKey = 'course_id';
-    public $timestamps = false;
-
-    protected $fillable = [
-        'name', 'description', 'grade_id'
-    ];
+    protected $fillable = ['name', 'description', 'grade_id'];
+    
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class, 'grade_id');
+    }
+    
+    public function examResults()
+    {
+        return $this->hasMany(ExamResult::class, 'course_id');
+    }
 }
