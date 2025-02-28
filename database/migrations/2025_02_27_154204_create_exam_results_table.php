@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('marks', 45);
             $table->timestamps();
         
-            // ✅ Correct foreign keys
+            
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });

@@ -1,0 +1,4 @@
+use this api syntax to check
+
+http://localhost:8000/api/v1/students
+
